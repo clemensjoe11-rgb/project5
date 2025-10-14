@@ -3,11 +3,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
 import heroImage from '@assets/stock_images/modern_professional__a10fb5d7.jpg';
 
-interface HeroSectionProps {
-  currentLang: 'de' | 'fr' | 'tr';
-}
+type Lang = 'de' | 'fr' | 'tr';
 
-const content = {
+const content: Record<Lang, any> = {
   de: {
     subtitle: 'PROFESSIONELLE ÜBERSETZUNGSDIENSTE',
     titleTop: 'SERVICE DE TRADUCTION',
@@ -33,63 +31,63 @@ const content = {
   },
 };
 
-export default function HeroSection({ currentLang }: HeroSectionProps) {
-  const [scrollY, setScrollY] = useState(0);
+export default function HeroSection({ currentLang }: { currentLang: Lang }) {
+  const [y, setY] = useState(0);
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
+    const onScroll = () => setY(window.scrollY);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollToContent = () =>
-    document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
-
   const t = content[currentLang];
 
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[85vh] overflow-hidden">
+      {/* Hintergrundbild */}
       <div
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: `url(${heroImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          transform: `translateY(${scrollY * 0.5}px)`,
+          transform: `translateY(${y * 0.5}px)`,
         }}
       />
+      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-foreground/80 via-foreground/70 to-foreground/60 z-10" />
 
-      <div
-        className="relative z-20 w-full max-w-5xl mx-auto px-6
-                   flex flex-col items-center text-center
-                   md:items-start md:text-left"
-      >
-        <p className="text-primary font-medium text-sm md:text-base uppercase tracking-wider mb-4 mx-auto md:mx-0">
-          {t.subtitle}
-        </p>
+      {/* Inhalt: mobil komplett zentriert, ab md links */}
+      <div className="absolute inset-0 z-20 flex items-center justify-center md:justify-start">
+        <div className="w-full max-w-5xl px-6 mx-auto md:mx-12 flex flex-col items-center text-center md:items-start md:text-left">
+          <p className="text-primary font-medium text-sm md:text-base uppercase tracking-wider mb-4">
+            {t.subtitle}
+          </p>
 
-        <h1 className="leading-tight text-primary-foreground font-bold mb-2 text-4xl md:text-6xl lg:text-7xl mx-auto md:mx-0">
-          <span className="block">{t.titleTop}</span>
-          <span className="block">{t.titleBottom}</span>
-        </h1>
+          <h1 className="leading-tight text-primary-foreground font-bold mb-2 text-4xl md:text-6xl lg:text-7xl">
+            <span className="block">{t.titleTop}</span>
+            <span className="block">{t.titleBottom}</span>
+          </h1>
 
-        <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto md:mx-0 mb-8 leading-relaxed">
-          {t.description}
-        </p>
+          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mb-8 leading-relaxed">
+            {t.description}
+          </p>
 
-        <Button
-          size="lg"
-          className="bg-primary hover-elevate active-elevate-2 text-primary-foreground px-8 py-6 text-lg self-center md:self-start"
-          onClick={() =>
-            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-          }
-        >
-          {t.cta}
-        </Button>
+          <Button
+            size="lg"
+            className="bg-primary hover-elevate active-elevate-2 text-primary-foreground px-8 py-6 text-lg"
+            onClick={() =>
+              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+            }
+          >
+            {t.cta}
+          </Button>
+        </div>
       </div>
 
       <button
-        onClick={scrollToContent}
+        onClick={() =>
+          document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })
+        }
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 text-primary-foreground/80 hover-elevate active-elevate-2 p-3 rounded-full transition-all animate-bounce"
         aria-label="Scroll down"
       >
