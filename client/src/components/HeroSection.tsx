@@ -11,13 +11,15 @@ const content = {
   de: {
     subtitle: 'PROFESSIONELLE ÜBERSETZUNGSDIENSTE',
     title: 'SERVICE DE TRADUCTION FR ↔ TR',
-    description: 'Hochwertige, präzise und kulturell sensible Übersetzungen zwischen Französisch und Türkisch',
+    description:
+      'Hochwertige, präzise und kulturell sensible Übersetzungen zwischen Französisch und Türkisch',
     cta: 'Kontaktieren Sie uns',
   },
   fr: {
     subtitle: 'SERVICES DE TRADUCTION PROFESSIONNELS',
     title: 'SERVICE DE TRADUCTION FR ↔ TR',
-    description: 'Services linguistiques de haute qualité, précis et culturellement sensibles',
+    description:
+      'Services linguistiques de haute qualité, précis et culturellement sensibles',
     cta: 'Nous contacter',
   },
   tr: {
@@ -32,17 +34,13 @@ export default function HeroSection({ currentLang }: HeroSectionProps) {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
+    const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToContent = () => {
-    const nextSection = document.getElementById('services');
-    nextSection?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const text = content[currentLang];
@@ -60,20 +58,35 @@ export default function HeroSection({ currentLang }: HeroSectionProps) {
       />
       <div className="absolute inset-0 bg-gradient-to-br from-foreground/80 via-foreground/70 to-foreground/60 z-10" />
 
-      <div className="relative z-20 max-w-5xl mx-auto px-6 text-center">
-        <p className="text-primary font-medium text-sm md:text-base uppercase tracking-wider mb-4" data-testid="text-hero-subtitle">
+      <div
+        className="relative z-20 max-w-5xl mx-auto px-6
+                   flex flex-col items-center text-center
+                   md:items-start md:text-left"
+      >
+        <p
+          className="text-primary font-medium text-sm md:text-base uppercase tracking-wider mb-4"
+          data-testid="text-hero-subtitle"
+        >
           {text.subtitle}
         </p>
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6" data-testid="text-hero-title">
+        <h1
+          className="text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6 mx-auto md:mx-0"
+          data-testid="text-hero-title"
+        >
           {text.title}
         </h1>
-        <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto mb-8 leading-relaxed" data-testid="text-hero-description">
+        <p
+          className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto md:mx-0 mb-8 leading-relaxed"
+          data-testid="text-hero-description"
+        >
           {text.description}
         </p>
-        <Button 
-          size="lg" 
-          className="bg-primary hover-elevate active-elevate-2 text-primary-foreground px-8 py-6 text-lg"
-          onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+        <Button
+          size="lg"
+          className="bg-primary hover-elevate active-elevate-2 text-primary-foreground px-8 py-6 text-lg mx-auto md:mx-0"
+          onClick={() =>
+            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+          }
           data-testid="button-hero-cta"
         >
           {text.cta}
