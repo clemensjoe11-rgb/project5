@@ -43,7 +43,6 @@ export default function HeroSection({ currentLang }: { currentLang: Lang }) {
 
   return (
     <section className="relative min-h-[85vh] overflow-hidden">
-      {/* Hintergrundbild */}
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -53,12 +52,11 @@ export default function HeroSection({ currentLang }: { currentLang: Lang }) {
           transform: `translateY(${y * 0.5}px)`,
         }}
       />
-      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-foreground/80 via-foreground/70 to-foreground/60 z-10" />
 
-      {/* Inhalt: mobil komplett zentriert, ab md links */}
-      <div className="absolute inset-0 z-20 flex items-center justify-center md:justify-start">
-        <div className="w-full max-w-5xl px-6 mx-auto md:mx-12 flex flex-col items-center text-center md:items-start md:text-left">
+      {/* Inhalt überall zentriert */}
+      <div className="absolute inset-0 z-20 flex items-center justify-center">
+        <div className="w-full max-w-5xl px-6 mx-auto flex flex-col items-center text-center">
           <p className="text-primary font-medium text-sm md:text-base uppercase tracking-wider mb-4">
             {t.subtitle}
           </p>
