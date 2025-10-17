@@ -1,0 +1,10 @@
+{
+  "framework": "vite",
+  "buildCommand": "npm install --no-audit --no-fund && npm run build:vite",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://DEINE-RENDER-DOMAIN/api/:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
